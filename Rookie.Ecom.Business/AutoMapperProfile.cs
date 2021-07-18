@@ -9,7 +9,7 @@ namespace Rookie.Ecom.Business
         public AutoMapperProfile()
         {
             CreateMap<CategoryDto, Category>();
-            CreateMap<Category, CategoryDto>().ReverseMap();
+            CreateMap<CategoryDto, Category>().ReverseMap();
         }
 
        

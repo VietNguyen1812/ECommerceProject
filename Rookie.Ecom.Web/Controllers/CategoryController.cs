@@ -31,7 +31,7 @@ namespace Rookie.Ecom.Web.Controllers
         public async Task<ActionResult> UpdateAsync([FromBody] CategoryDto categoryDto)
         {
             Ensure.Any.IsNotNull(categoryDto, nameof(categoryDto));
-            Ensure.Any.IsNotNull(categoryDto.Id, nameof(categoryDto.Id));
+            Ensure.Any.IsNotNull(categoryDto.CategoryId, nameof(categoryDto.CategoryId));
             await _categoryService.UpdateAsync(categoryDto);
             return NoContent();
         }

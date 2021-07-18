@@ -8,19 +8,19 @@ namespace Rookie.Ecom.Web.Validators
     {
         public CategoryDtoValidator()
         {
-            RuleFor(m => m.Name)
+            RuleFor(m => m.CategoryName)
                   .NotEmpty()
-                  .WithMessage(x => string.Format(ErrorTypes.Common.RequiredError, nameof(x.Name)));
+                  .WithMessage(x => string.Format(ErrorTypes.Common.RequiredError, nameof(x.CategoryName)));
 
-            RuleFor(m => m.Name)
+            RuleFor(m => m.CategoryName)
                .MaximumLength(ValidationRules.CategoryRules.MaxLenghCharactersForName)
                .WithMessage(string.Format(ErrorTypes.Common.MaxLengthError, ValidationRules.CategoryRules.MaxLenghCharactersForName))
-               .When(m => !string.IsNullOrWhiteSpace(m.Name));
+               .When(m => !string.IsNullOrWhiteSpace(m.CategoryName));
 
-            RuleFor(m => m.Desc)
+            RuleFor(m => m.Description)
                .MaximumLength(ValidationRules.CategoryRules.MaxLenghCharactersForDesc)
                .WithMessage(string.Format(ErrorTypes.Common.MaxLengthError, ValidationRules.CategoryRules.MaxLenghCharactersForDesc))
-               .When(m => !string.IsNullOrWhiteSpace(m.Desc));
+               .When(m => !string.IsNullOrWhiteSpace(m.Description));
         }
     }
 }
