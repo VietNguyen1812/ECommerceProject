@@ -2,18 +2,18 @@
 using Rookie.Ecom.Contracts.Dtos;
 using Rookie.Ecom.DataAccessor.Entities;
 
-namespace Rookie.Ecom.Business
+namespace Rookie.Ecom.Business.Mapping
 {
-    public class AutoMapperProfile : Profile
+    public class CategoryMapperProfile : Profile
     {
-        public AutoMapperProfile()
+        public CategoryMapperProfile()
         {
             CreateMap<CategoryDto, Category>();
             CreateMap<CategoryDto, Category>().ReverseMap();
         }
 
-       
 
-       
+
+
     }
 }
