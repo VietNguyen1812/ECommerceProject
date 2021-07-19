@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Rookie.Ecom.DataAccessor.Data;
+using Microsoft.OpenApi.Models;
 
 namespace Rookie.Ecom.Identity
 {
@@ -12,8 +15,10 @@ namespace Rookie.Ecom.Identity
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            
             services.AddCors(options =>
             {
+
                 options.AddPolicy("AllowOrigins",
                     builder =>
                     {
@@ -30,6 +35,10 @@ namespace Rookie.Ecom.Identity
                 .AddTestUsers(InitData.GetUsers())
                 .AddInMemoryIdentityResources(InitData.GetIdentityResources())
                 .AddInMemoryClients(InitData.GetClients());
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Swagger EcommerceShop", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,7 +52,12 @@ namespace Rookie.Ecom.Identity
             app.UseIdentityServer();
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseSwagger();
 
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger EcommerceShop V1");
+            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
