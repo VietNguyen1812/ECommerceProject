@@ -1,6 +1,8 @@
 ﻿using Ecommerce.WebApp.Models;
+using Ecommerce.WebApp.Services.ProductsClient;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Rookie.Ecom.Contracts.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,15 +14,22 @@ namespace Ecommerce.WebApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IProductApi _productApi;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IProductApi productApi)
         {
             _logger = logger;
+            _productApi = productApi;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var products = await _productApi.GetAllProduct();
+            var HomeModels = new HomeVm()
+            {
+                Products = products
+            };
+            return View(HomeModels);
         }
 
         public IActionResult Privacy()

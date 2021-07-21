@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Rookie.Ecom.Contracts.ViewModels
 {
-    class HomeVm
+    public class HomeVm
     {
         public IEnumerable<ProductDto> Products { get; set; }
     }
