@@ -1,4 +1,6 @@
 using Ecommerce.WebApp.Extensions;
+using Ecommerce.WebApp.Services.CategoriesService;
+using Ecommerce.WebApp.Services.ProductsClient;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -8,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Ecommerce.WebApp
@@ -28,6 +31,12 @@ namespace Ecommerce.WebApp
 
             services.AddHttpClient();
             services.AddService();
+            services.AddCustomHttpClient(Configuration);
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddHttpContextAccessor();
+            // add DI
+            services.AddTransient<IProductApi, ProductApi>();
+            services.AddTransient<ICategoryApi, CategoryApi>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
