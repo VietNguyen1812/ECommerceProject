@@ -42,7 +42,7 @@ namespace Rookie.Ecom.Business.Services
         public async Task<IEnumerable<ProductDto>> GetAllAsync()
         {
             var products = await _baseRepository.GetAllAsync();
-            return _mapper.Map<List<ProductDto>>(products);
+            return _mapper.Map<IEnumerable<ProductDto>>(products);
         }
 
         public async Task<ProductDto> GetByIdAsync(Guid id)

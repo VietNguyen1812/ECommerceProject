@@ -10,8 +10,8 @@ namespace Rookie.Ecom.DataAccessor
         public static void AddDataAccessorLayer(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<EcommerceDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("eShopDb"), b =>
-                    b.MigrationsAssembly(typeof(EcommerceDbContext).Assembly.FullName)
+                options.UseSqlServer(configuration.GetConnectionString("eShopDb"),
+                b => b.MigrationsAssembly(typeof(EcommerceDbContext).Assembly.FullName)
                 ));
         }
     }

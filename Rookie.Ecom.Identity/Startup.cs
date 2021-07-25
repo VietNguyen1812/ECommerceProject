@@ -6,11 +6,18 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Rookie.Ecom.DataAccessor.Data;
 using Microsoft.OpenApi.Models;
+using Rookie.Ecom.Business;
+using Microsoft.Extensions.Configuration;
 
 namespace Rookie.Ecom.Identity
 {
     public class Startup
     {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+        public IConfiguration Configuration { get; }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
@@ -29,7 +36,7 @@ namespace Rookie.Ecom.Identity
             });
 
             services.AddMvc();
-
+            services.AddBusinessLayer(Configuration);
             services.AddIdentityServer()
                 .AddDeveloperSigningCredential()
                 .AddTestUsers(InitData.GetUsers())
@@ -39,6 +46,7 @@ namespace Rookie.Ecom.Identity
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Swagger EcommerceShop", Version = "v1" });
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

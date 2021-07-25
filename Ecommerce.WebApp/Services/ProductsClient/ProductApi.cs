@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using Rookie.Ecom.Contracts.Constants;
 using Rookie.Ecom.Contracts.Dtos.Product;
 using System;
@@ -13,16 +14,18 @@ namespace Ecommerce.WebApp.Services.ProductsClient
     {
 
         private readonly IHttpClientFactory _clientFactory;
+        private readonly IConfiguration _config;
 
-        public ProductApi(IHttpClientFactory clientFactory)
+        public ProductApi(IHttpClientFactory clientFactory, IConfiguration config)
         {
             _clientFactory = clientFactory;
+            _config = config;
         }
 
         public async  Task<IEnumerable<ProductDto>> GetAllProduct()
         {
-            var client = _clientFactory.CreateClient(ServiceConstants.BACK_END_NAMED_CLIENT);
-
+            var client = _clientFactory.CreateClient();
+            client.BaseAddress = new Uri(_config[ConfigurationConstants.BACK_END_ENDPOINT]);
             var respone = await client.GetAsync("api/Products");
 
             respone.EnsureSuccessStatusCode();
@@ -34,8 +37,8 @@ namespace Ecommerce.WebApp.Services.ProductsClient
 
         public async Task<IEnumerable<ProductDto>> GetProductByCategory(Guid? categoryId)
         {
-            var client = _clientFactory.CreateClient(ServiceConstants.BACK_END_NAMED_CLIENT);
-
+            var client = _clientFactory.CreateClient();
+            client.BaseAddress = new Uri(_config[ConfigurationConstants.BACK_END_ENDPOINT]);
             var respone = await client.GetAsync($"api/Products/GetProductByCategory\\{categoryId}");
 
             respone.EnsureSuccessStatusCode();
@@ -47,8 +50,8 @@ namespace Ecommerce.WebApp.Services.ProductsClient
 
         public async Task<ProductDto> GetProductById(Guid Id)
         {
-            var client = _clientFactory.CreateClient(ServiceConstants.BACK_END_NAMED_CLIENT);
-
+            var client = _clientFactory.CreateClient();
+            client.BaseAddress = new Uri(_config[ConfigurationConstants.BACK_END_ENDPOINT]);
             var respone = await client.GetAsync($"api/Products\\{Id}");
 
             respone.EnsureSuccessStatusCode();
@@ -60,8 +63,8 @@ namespace Ecommerce.WebApp.Services.ProductsClient
 
         public async Task<IEnumerable<ProductDto>> GetReleatedProduct(Guid productId)
         {
-            var client = _clientFactory.CreateClient(ServiceConstants.BACK_END_NAMED_CLIENT);
-
+            var client = _clientFactory.CreateClient();
+            client.BaseAddress = new Uri(_config[ConfigurationConstants.BACK_END_ENDPOINT]);
             var respone = await client.GetAsync($"api/Products/GetRelatedProduct\\{productId}");
 
 

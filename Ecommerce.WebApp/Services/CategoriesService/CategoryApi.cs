@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Rookie.Ecom.Contracts.Constants;
 using Rookie.Ecom.Contracts.Dtos;
@@ -13,16 +14,19 @@ namespace Ecommerce.WebApp.Services.CategoriesService
     public class CategoryApi : ICategoryApi
     {
         private readonly IHttpClientFactory _clientFactory;
+        private readonly IConfiguration _config;
 
-        public CategoryApi(IHttpClientFactory clientFactory)
+        public CategoryApi(IHttpClientFactory clientFactory, IConfiguration config)
         {
             _clientFactory = clientFactory;
+            _config = config;
         }
 
 
         public async Task<IEnumerable<CategoryDto>> GetAllCategory()
         {
-            var client = _clientFactory.CreateClient(ServiceConstants.BACK_END_NAMED_CLIENT);
+            var client = _clientFactory.CreateClient();
+            client.BaseAddress = new Uri(_config[ConfigurationConstants.BACK_END_ENDPOINT]);
             var respone = await client.GetAsync("api/Categories");
             respone.EnsureSuccessStatusCode();
 
@@ -33,7 +37,8 @@ namespace Ecommerce.WebApp.Services.CategoriesService
 
         public async Task<CategoryDto> GetCategoryById(Guid Id)
         {
-            var client = _clientFactory.CreateClient(ServiceConstants.BACK_END_NAMED_CLIENT);
+            var client = _clientFactory.CreateClient();
+            client.BaseAddress = new Uri(_config[ConfigurationConstants.BACK_END_ENDPOINT]);
 
             var respone = await client.GetAsync($"api/Categories\\{Id}");
 
