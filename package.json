@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "axios": "^0.21.1",
+    "redux": "^4.1.0",
+    "redux-hook": "^0.1.3",
+    "redux-thunk": "^2.3.0"
+  }
+}
