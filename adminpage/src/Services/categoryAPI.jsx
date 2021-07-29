@@ -53,4 +53,4 @@ export const DeleteCategory = (id) => {
     console.log(error.response);
     return null;
   });
-}
+};

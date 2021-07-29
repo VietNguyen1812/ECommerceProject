@@ -11,6 +11,7 @@ class RequestService {
   constructor() {
     this.axios = axios.create(config);
   }
+  
 }
 
 export default new RequestService();

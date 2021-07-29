@@ -3,13 +3,29 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">N SHOP</h1>
+            <p class="lead fw-normal text-white-50 mb-0">MANG ĐẾN CHẤT LƯỢNG TUYỆT HẢO</p>
+        </div>
+    </div>
+</header>
 
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid" style="width:2200px; margin-left:240px;height: 40px;">
+        <form class="d-flex" asp-action="Index" method="get" style="height:40px; width: 800px;">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="name">
+            <button class="btn btn-outline-success" style="width:190px" type="submit">Tìm kiếm</button>
+        </form>
+    </div>
+</nav>
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     @foreach (var item in Model.Products)
-            {
-                <p>@item.Name Learn about building Web apps with ASP.NET Core.</p>
+    {
+        <p>@item.Name Learn about building Web apps with ASP.NET Core.</p>
 
-            }
+    }
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
